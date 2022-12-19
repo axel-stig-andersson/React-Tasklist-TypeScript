@@ -12,6 +12,16 @@ parts in this component css file.
     align-items: center;
 }
 
+/*
+box-shadow works as follows: First value is the shadow in the x-direction.
+That means, -5px will give the element some shadow to the LEFT,
+as in negative x-direction, as if someone pointed a flashlogt from the right. 
+5px will do the opposite. Second value is y-direction, positive value gives shadow under
+the element, as in positive y-direction (and vice versa).
+Last valuen is an overall shadow around the element, gives a feeling 
+of elevation to it. After those three, you specify color. Default is no color.
+*/
+
 .input_box {
     width: 100%;
     border-radius: 40px;
@@ -23,7 +33,7 @@ parts in this component css file.
 }
 
 .input_box:focus {
-    box-shadow: 0 0 10px 1000px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 10px 100vh rgba(0, 0, 0, .5);
     outline: none;
 }
 
@@ -31,7 +41,7 @@ parts in this component css file.
     position: absolute;
     width: 50px;
     height: 50px;
-    margin: 12px;
+    margin: 15px;
     border-radius: 50px;
     right: 0px;
     border: none;
