@@ -3,16 +3,15 @@ import { Task } from '../model';
 import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
 import { MdDone } from 'react-icons/md'
 import './styles.css'
-import { Draggable } from 'react-beautiful-dnd';
+import { toUnicode } from 'punycode';
 
 type Props = {
-  index: number;
   task: Task;
   allTasks: Task[];
   setAllTasks: React.Dispatch<React.SetStateAction<Task[]>>
 }
 
-const SingleTask = ({ index, task, allTasks, setAllTasks}:Props) => {
+const SingleTask = ({ task, allTasks, setAllTasks}:Props) => {
 
   const [edit, setEdit] = useState<boolean>(false);
   const [editedTask, setEditedTask] = useState<string>(task.task)
@@ -42,48 +41,38 @@ const SingleTask = ({ index, task, allTasks, setAllTasks}:Props) => {
 
 
   return (
-    <Draggable draggableId={task.id.toString()} index={index}>
-      {(provided) => (
-        <form className='task__single' 
-        onSubmit={(e) => handleEdit(e, task.id)}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-        >
-        {edit ? (
-          <input 
-            ref={focusRef}
-            value={editedTask} onChange={(e) => 
-            {setEditedTask(e.target.value)}} 
-            className='task_single--text'/>
-        ) :
-          task.isDone ? (
-            <s className='task__single--text'>{task.task}</s>
-          ): 
-            (<span className='task__single--text'>{task.task}</span>)
-          
-        }
-  
-        <div>
-          <span className="icon" onClick={() => {
-            if (!edit && !task.isDone) {
-                setEdit(!edit)
-            }
-          }
-          }>
-            <AiFillEdit />
-          </span>
-          <span className="icon" onClick={() => handleDelete(task.id)}>
-            <AiFillDelete />
-          </span>
-          <span className="icon" onClick={() => handleDone(task.id)}>
-            <MdDone />
-          </span>
-        </div>
-      </form>
-      )}
-    </Draggable>
+    <form className='task__single' onSubmit={(e) => handleEdit(e, task.id)}>
+      {edit ? (
+        <input 
+          ref={focusRef}
+          value={editedTask} onChange={(e) => 
+          {setEditedTask(e.target.value)}} 
+          className='task_single--text'/>
+      ) :
+        task.isDone ? (
+          <s className='task__single--text'>{task.task}</s>
+        ): 
+          (<span className='task__single--text'>{task.task}</span>)
+        
+      }
 
+      <div>
+        <span className="icon" onClick={() => {
+          if (!edit && !task.isDone) {
+              setEdit(!edit)
+          }
+        }
+        }>
+          <AiFillEdit />
+        </span>
+        <span className="icon" onClick={() => handleDelete(task.id)}>
+          <AiFillDelete />
+        </span>
+        <span className="icon" onClick={() => handleDone(task.id)}>
+          <MdDone />
+        </span>
+      </div>
+    </form>
   )
 }
 

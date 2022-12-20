@@ -75,7 +75,7 @@ of elevation to it. After those three, you specify color. Default is no color.
     flex-direction: column;
     border-radius: 5px;
     padding: 15px;
-    background-color: #e602c7;
+    /* background-color: #e602c7; */
 }
 
 .tasklist__heading {
